@@ -1,0 +1,26 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Edit {{ title }}
+{% endblock %}
+
+{% block body %}
+
+    {% if error %}
+    <div style="background-color: #ffcccc; color: #990000; padding: 10px; border-radius: 5px; margin-bottom: 10px;">
+        <strong>Error:</strong> {{ error }}
+    </div>
+    {% endif %}
+
+    <form action="{% url 'encyclopedia:edit_entry' entry_name=title %}" method="post">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="entryarea" class="font-weight-bold">Entry Body</label>
+            <textarea id="entryarea" name="entry_body" class="form-control" rows="6">{{ content }}</textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save entry</button>
+    </form>
+
+{% endblock %}

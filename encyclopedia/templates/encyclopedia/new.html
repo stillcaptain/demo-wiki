@@ -1,0 +1,32 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Create a new page
+{% endblock %}
+
+{% block body %}
+
+    {% if error %}
+        <div style="background-color: #ffcccc; color: #990000; padding: 10px; border-radius: 5px; margin-bottom: 10px;">
+            <strong>Error:</strong> {{ error }}
+        </div>
+    {% endif %}
+
+
+    <form action="{% url 'encyclopedia:new_entry' %}" method="post">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="entrytitle" class="font-weight-bold">Entry Title</label>
+            <input type="text" id="entrytitle" name="entry_title" class="form-control" value="{{ title|default:'' }}" placeholder="Enter title..." required>
+        </div>
+
+        <div class="form-group">
+            <label for="entryarea" class="font-weight-bold">Entry Body</label>
+            <textarea id="entryarea" name="entry_body" class="form-control" rows="6" placeholder="Write your content in Markdown..." value="{{ content|default:'' }}" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save entry</button>
+    </form>
+
+{% endblock %}
